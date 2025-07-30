@@ -1,3 +1,5 @@
+<<<<<<< HEAD
+
 # Job Application Tracker
 
 A full-stack web application for tracking job applications with authentication, dashboard analytics, and CRUD operations.
@@ -195,4 +197,4 @@ npm start
 
 ## License
 
-This project is open source and available under the [MIT License](LICENSE).
+# This project is open source and available under the [MIT License](LICENSE).
