@@ -37,7 +37,9 @@ const login = async (req, res) => {
 
   try {
     const user = await User.findOne({ email });
-    if (!user) return res.status(404).json({ msg: "User not found" });
+    if (!user) {
+      return res.status(404).json({ msg: "User not found" });
+    }
 
     const isPasswordValid = await user.comparePassword(password);
     if (!isPasswordValid) {
@@ -49,7 +51,7 @@ const login = async (req, res) => {
       expiresIn: "7d",
     });
 
-    res.status(200).json({
+    return res.status(200).json({
       msg: "Login successful",
       token,
       user: {
@@ -59,7 +61,7 @@ const login = async (req, res) => {
       },
     });
   } catch (error) {
-    res.status(500).json({ msg: "Server error", error: error.message });
+    return res.status(500).json({ msg: "Server error", error: error.message });
   }
 };
 

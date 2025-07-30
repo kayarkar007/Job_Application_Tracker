@@ -35,10 +35,6 @@ mongoose
     console.error("Error connecting to MongoDB:", err.message);
   });
 
-app.get("/", (req, res) => {
-  res.send("API is working ✅");
-});
-
 app.use("/api/auth", authRoutes);
 app.use("/api/jobs", jobRoutes);
 

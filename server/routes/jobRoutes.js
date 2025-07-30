@@ -1,5 +1,7 @@
 import express from "express";
 import auth from "../middleware/auth.js";
+// console.log("Inside jobRoutes before defining routes");
+
 import {
   createJob,
   getJobs,
