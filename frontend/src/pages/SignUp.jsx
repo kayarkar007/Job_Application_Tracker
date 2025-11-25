@@ -3,19 +3,21 @@ import { useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import { authAPI } from "../services/api";
 
-const Login = () => {
+const SignUp = () => {
   const navigate = useNavigate();
   const { login } = useAuth();
-  const [loginData, setLoginData] = useState({
+  const [signupData, setSignupData] = useState({
+    name: "",
     email: "",
     password: "",
   });
-  const [loading, setLoading] = useState(false);
+
   const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setLoginData((prev) => ({
+    setSignupData((prev) => ({
       ...prev,
       [name]: value,
     }));
@@ -23,16 +25,16 @@ const Login = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setLoading(true);
     setError("");
+    setLoading(true);
+
     try {
-      const response = await authAPI.login(loginData);
+      const response = await authAPI.signup(signupData);
       login(response.data.user, response.data.token);
       navigate("/dashboard");
-      // console.log("Login Data:", loginData); // This log is fine but more useful after success.
     } catch (err) {
-      console.error("Login failed:", err); // Add this for debugging
-      setError(err.response?.data?.msg || "Login failed. Please try again.");
+      console.error("Signup failed:", err); // Add this for debugging
+      setError(err.response?.data?.msg || "Signup failed. Please try again.");
     } finally {
       setLoading(false);
     }
@@ -60,13 +62,35 @@ const Login = () => {
             </svg>
           </div>
           <h2 className="text-2xl sm:text-3xl font-extrabold text-blue-600 mb-1">
-            Welcome Back
+            Create Account
           </h2>
           <p className="text-gray-500 text-xs sm:text-sm text-center">
-            Sign in to continue your job search journey!
+            Join JobTracker and take control of your job search journey!
           </p>
         </div>
+        {error && (
+          <div className="mb-4 text-red-600 text-center font-semibold">{error}</div>
+        )}
         <div className="space-y-5">
+          <div>
+            <label
+              htmlFor="name"
+              className="block text-sm font-medium text-gray-700 mb-2"
+            >
+              Full Name
+            </label>
+            <input
+              type="text"
+              id="name"
+              name="name"
+              value={signupData.name}
+              onChange={handleChange}
+              placeholder="Full Name"
+              className="w-full px-4 py-3 border border-blue-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-600 transition"
+              autoComplete="name"
+              required
+            />
+          </div>
           <div>
             <label
               htmlFor="email"
@@ -78,7 +102,7 @@ const Login = () => {
               type="email"
               id="email"
               name="email"
-              value={loginData.email}
+              value={signupData.email}
               onChange={handleChange}
               placeholder="Email Address"
               className="w-full px-4 py-3 border border-blue-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-600 transition"
@@ -97,34 +121,26 @@ const Login = () => {
               type="password"
               id="password"
               name="password"
-              value={loginData.password}
+              value={signupData.password}
               onChange={handleChange}
               placeholder="Password"
               className="w-full px-4 py-3 border border-blue-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-600 transition"
-              autoComplete="current-password"
+              autoComplete="new-password"
               required
             />
           </div>
         </div>
-        {error && (
-          <div className="mt-4 p-3 bg-red-100 border border-red-400 text-red-700 rounded-lg">
-            {error}
-          </div>
-        )}
         <button
           className="mt-8 w-full py-3 rounded-xl bg-blue-600 text-white font-bold text-base sm:text-lg shadow-lg hover:scale-105 hover:shadow-2xl transition transform duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
           type="submit"
           disabled={loading}
         >
-          {loading ? "Logging in..." : "Login"}
+          {loading ? "Creating Account..." : "Sign Up"}
         </button>
         <div className="mt-6 text-center text-gray-500 text-xs sm:text-sm">
-          Don't have an account?{" "}
-          <a
-            href="/signup"
-            className="text-blue-600 font-semibold hover:underline transition"
-          >
-            Sign Up
+          Already have an account?{" "}
+          <a href="/login" className="text-blue-600 font-semibold hover:underline transition">
+            Login
           </a>
         </div>
       </form>
@@ -132,4 +148,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default SignUp;

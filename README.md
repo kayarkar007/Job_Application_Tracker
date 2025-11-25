@@ -1,5 +1,3 @@
-<<<<<<< HEAD
-
 # Job Application Tracker
 
 A full-stack web application for tracking job applications with authentication, dashboard analytics, and CRUD operations.

@@ -17,12 +17,12 @@ const Dashboard = () => {
     const timeout = setTimeout(() => {
       if (loading) {
         setLoading(false);
-        console.warn("Dashboard loading timeout");
+        // console.warn("Dashboard loading timeout");
       }
     }, 15000); // 15 second timeout
 
     return () => clearTimeout(timeout);
-  });
+  },[]);
 
   const fetchStats = async () => {
     try {
@@ -147,9 +147,7 @@ const Dashboard = () => {
         <div className="flex flex-col items-center space-y-4">
           <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
           <div className="text-xl text-gray-600">Loading dashboard...</div>
-          <div className="text-sm text-gray-500">
-            Please wait while we fetch your data
-          </div>
+          <div className="text-sm text-gray-500">Please wait while we fetch your data</div>
         </div>
       </div>
     );
@@ -158,26 +156,15 @@ const Dashboard = () => {
   return (
     <div className="text-black flex flex-col items-center justify-start min-h-[90vh] bg-white px-4 sm:px-6 lg:px-8">
       <div className="w-full max-w-7xl pt-8">
-        <h1 className="text-2xl sm:text-3xl font-bold mb-4 text-blue-600">
-          Dashboard
-        </h1>
-        <p className="text-base sm:text-lg text-gray-700 mb-2">
-          Track your job applications and analyze your progress.
-        </p>
+        <h1 className="text-2xl sm:text-3xl font-bold mb-4 text-blue-600">Dashboard</h1>
+        <p className="text-base sm:text-lg text-gray-700 mb-2">Track your job applications and analyze your progress.</p>
       </div>
       <div className="stat_box w-full max-w-7xl mt-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
         {statsData.map((stat) => (
-          <div
-            key={stat.title}
-            className="flex flex-col items-center justify-center h-24 sm:h-32 border border-gray-200 rounded-xl shadow-sm bg-gray-50 hover:shadow-md transition-shadow duration-200 p-4"
-          >
+          <div key={stat.title} className="flex flex-col items-center justify-center h-24 sm:h-32 border border-gray-200 rounded-xl shadow-sm bg-gray-50 hover:shadow-md transition-shadow duration-200 p-4">
             <div className="mb-2">{stat.icon}</div>
-            <div className="title text-xs sm:text-sm font-medium text-gray-600 text-center">
-              {stat.title}
-            </div>
-            <div className="count text-xl sm:text-2xl font-bold text-gray-900 mt-1">
-              {stat.count}
-            </div>
+            <div className="title text-xs sm:text-sm font-medium text-gray-600 text-center">{stat.title}</div>
+            <div className="count text-xl sm:text-2xl font-bold text-gray-900 mt-1">{stat.count}</div>
           </div>
         ))}
       </div>

@@ -52,9 +52,7 @@ const Navbar = React.memo(() => {
             <span className="text-xs sm:text-sm text-gray-600 mr-2 hidden sm:inline">
               Welcome, {user?.name}
             </span>
-            <span className="text-xs text-gray-600 mr-2 sm:hidden">
-              {user?.name}
-            </span>
+            <span className="text-xs text-gray-600 mr-2 sm:hidden">{user?.name}</span>
           </div>
           <button
             onClick={handleLogout}
