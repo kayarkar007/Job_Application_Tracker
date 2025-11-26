@@ -59,7 +59,7 @@ const connectToDatabase = async (uri) => {
   console.log("Connecting to MongoDB...");
   await mongoose.connect(uri, {
     maxPoolSize: 10,
-    serverSelectionTimeoutMS: 5000,
+    serverSelectionTimeoutMS: 30000,
     socketTimeoutMS: 45000,
   });
   console.log("Connected to MongoDB");
