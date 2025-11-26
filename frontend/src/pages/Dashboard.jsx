@@ -9,6 +9,7 @@ const Dashboard = () => {
     byStatus: {},
   });
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     fetchStats();
@@ -22,7 +23,7 @@ const Dashboard = () => {
     }, 15000); // 15 second timeout
 
     return () => clearTimeout(timeout);
-  },[]);
+  }, []);
 
   const fetchStats = async () => {
     try {
@@ -30,6 +31,7 @@ const Dashboard = () => {
       setStats(response.data);
     } catch (error) {
       console.error("Error fetching stats:", error);
+      setError("Failed to fetch dashboard data. Please try again later.");
       // Set default stats if API fails
       setStats({
         total: 0,
@@ -149,6 +151,14 @@ const Dashboard = () => {
           <div className="text-xl text-gray-600">Loading dashboard...</div>
           <div className="text-sm text-gray-500">Please wait while we fetch your data</div>
         </div>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="text-black flex flex-col items-center justify-center min-h-[90vh] bg-white">
+        <div className="text-red-500 text-xl">{error}</div>
       </div>
     );
   }
