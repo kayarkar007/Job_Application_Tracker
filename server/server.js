@@ -28,7 +28,12 @@ console.log("Configured frontend origin(s) for CORS:", allowedOrigins);
 app.use(
   cors({
     origin: (origin, callback) => {
+      console.log(`Request from origin: ${origin}`);
       if (!origin || allowedOrigins.includes(origin)) {
+        return callback(null, true);
+      }
+      if (process.env.NODE_ENV !== 'production') {
+        // Allow all origins in non-production environments
         return callback(null, true);
       }
       return callback(
