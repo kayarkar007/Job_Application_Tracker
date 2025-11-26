@@ -5,15 +5,7 @@
       "headers": [
         {
           "key": "Content-Security-Policy",
-          "value": "default-src 'self'; connect-src 'self' https://my-job-application-tracker.onrender.com; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self';"
-        },
-        {
-          "key": "Permissions-Policy",
-          "value": "camera=(), geolocation=(), microphone=()"
-        },
-        {
-          "key": "Referrer-Policy",
-          "value": "strict-origin-when-cross-origin"
+          "value": "default-src 'self'; connect-src 'self' https://my-job-application-tracker.onrender.com; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline' https:; img-src 'self' data: https:; font-src 'self' https:;"
         }
       ]
     }
